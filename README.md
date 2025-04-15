@@ -23,4 +23,4 @@ Uma aplicação web simples, leve e portátil para gestão de tarefas, desenvolv
 1. Faz download ou clona este repositório:
 
    ```bash
-   git clone https://github.com/seu-utilizador/tarefas-alexandrina.git
+   git clone https://github.com/carlosfranquinho/tarefas-alexandrina.git
