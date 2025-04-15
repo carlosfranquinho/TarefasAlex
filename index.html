@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Carlos Franquinho" />
+    <title>Tarefas da Alexandrina</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>🌼 Gestor de Tarefas da Alexandrina</h1>
+    </header>
+
+    <div class="top-bar">
+      <button onclick="abrirFormulario()">+ Adicionar Tarefa</button>
+      <input
+        type="text"
+        id="pesquisa"
+        placeholder="Pesquisar..."
+        oninput="renderTarefas()"
+      />
+      <button onclick="abrirAnalise()">📊 Análise</button>
+    </div>
+
+    <div id="lista-tarefas" class="lista-tarefas"></div>
+    <div id="controles-inferiores">
+      <div id="paginacao"></div>
+      <div id="acoes-finais">
+        <button onclick="exportarTarefas()">⬇ Exportar</button>
+        <label class="importar-btn">
+          ⬆ Importar
+          <input
+            type="file"
+            id="ficheiro-importar"
+            accept=".json"
+            onchange="importarTarefas()"
+            hidden
+          />
+        </label>
+      </div>
+    </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h2 id="modal-titulo">Nova Tarefa</h2>
+        <label for="form-titulo">Título:</label>
+        <input type="text" id="form-titulo" />
+        <label for="form-descricao">Descrição:</label>
+        <textarea id="form-descricao"></textarea>
+        <label for="form-tempo">Adicionar tempo (min):</label>
+        <input type="number" id="form-tempo" />
+        <div id="form-tempos-anteriores" class="tempos-anteriores"></div>
+
+        <div id="campo-concluido" class="campo-checkbox escondido">
+          <label>
+            <input type="checkbox" id="checkbox-concluido" />
+            <span>Tarefa concluída</span>
+          </label>
+        </div>
+
+        <div class="botoes">
+          <button onclick="guardarTarefa()">Guardar</button>
+          <button onclick="fecharModal()">Cancelar</button>
+          <button class="apagar" onclick="apagarTarefa()">🗑️ Apagar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-analise" class="modal">
+      <div class="modal-content">
+        <h2>Análise de Tarefas</h2>
+
+        <div id="modo-analise">
+          <button
+            id="botao-semana"
+            class="ativo"
+            onclick="mostrarModo('semana')"
+          >
+            Semana
+          </button>
+          <button id="botao-mes" onclick="mostrarModo('mes')">Mês</button>
+        </div>
+
+        <div id="linha-periodo">
+          <div id="periodo-label" class="periodo-label">Semana 16 de 2025</div>
+          <div class="navegacao-centro">
+            <button onclick="anteriorPeriodo()">◀ Anterior</button>
+            <button onclick="voltarParaAtual()">🔄 Atual</button>
+            <button onclick="proximoPeriodo()">▶ Seguinte</button>
+          </div>
+        </div>
+
+        <div id="secao-semanal" class="grafico-container">
+          <div class="navegacao">
+            <button id="btnSemanaAnterior" onclick="anteriorSemana()">
+              Semana anterior
+            </button>
+            <span id="label-semana"></span>
+            <button id="btnSemanaSeguinte" onclick="proximaSemana()">
+              Semana seguinte
+            </button>
+          </div>
+          <canvas id="grafico-semanal"></canvas>
+        </div>
+
+        <div id="secao-mensal" class="grafico-container" style="display: none">
+          <div class="navegacao">
+            <button id="btnMesAnterior" onclick="anteriorMes()">
+              Mês anterior
+            </button>
+            <span id="label-mes"></span>
+            <button id="btnMesSeguinte" onclick="proximoMes()">
+              Mês seguinte
+            </button>
+          </div>
+          <canvas id="grafico-mensal"></canvas>
+        </div>
+
+        <div style="text-align: right">
+          <button onclick="fecharAnalise()">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
